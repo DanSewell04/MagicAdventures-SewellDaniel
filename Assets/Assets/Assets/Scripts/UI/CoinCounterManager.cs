@@ -19,7 +19,7 @@ public class CoinCounterManager : MonoBehaviour
     void Update()
     {
         CoinDisplay.text = coinCount.ToString();
-        if (coinCount < 7)
+        if (coinCount < 8)
         {
             coinCollected = false;
         }

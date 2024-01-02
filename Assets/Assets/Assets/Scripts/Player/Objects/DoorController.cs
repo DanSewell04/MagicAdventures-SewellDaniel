@@ -5,8 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class DoorController : MonoBehaviour
 {
-    public int requiredCoins = 7; // Number of coins required to unlock the door.
-    public CoinManager coinManager;
+    public int requiredCoins = 8; // Number of coins required to unlock the door.
+    public CoinCounterManager coinManager;
 
     void Start()
     {
@@ -18,7 +18,7 @@ public class DoorController : MonoBehaviour
         bool canopendoor = coinManager.coinCollected;
         if (other.CompareTag("Player")&& canopendoor)
         {
-            SceneManager.LoadScene("Level 1");
+            SceneManager.LoadScene("GameCompleted");
         }
     }
 }
