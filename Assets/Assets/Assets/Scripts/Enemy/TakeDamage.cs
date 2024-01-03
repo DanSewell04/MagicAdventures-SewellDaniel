@@ -19,12 +19,14 @@ public class TakeDamage : MonoBehaviour
             player = getPlayer;
         }
 
-        
+        // Initialize the AudioSource component
         audioSource = GetComponent<AudioSource>();
         if (audioSource == null)
         {
-            OnDestroy();
+            // If AudioSource is not attached, add it
             audioSource = gameObject.AddComponent<AudioSource>();
+            audioSource.playOnAwake = false; // Ensure it doesn't play on awake
+            audioSource.enabled = false; // Disable the AudioSource initially
         }
     }
 
@@ -53,10 +55,19 @@ public class TakeDamage : MonoBehaviour
 
     private void OnDestroy()
     {
-        // Check if the audio clip is assigned and the AudioSource exists
         if (deathSound != null && audioSource != null)
         {
-            audioSource.PlayOneShot(deathSound);
+            // Ensure AudioSource is enabled before playing the sound
+            if (!audioSource.enabled)
+            {
+                audioSource.enabled = true;
+                audioSource.PlayOneShot(deathSound);
+                audioSource.enabled = false; // Disable it again after playing the sound
+            }
+            else
+            {
+                audioSource.PlayOneShot(deathSound);
+            }
         }
     }
 }
